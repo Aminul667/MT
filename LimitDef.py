@@ -60,8 +60,8 @@ class Limit0(GraphScene):
 
         f_text_value = always_redraw(lambda : DecimalNumber(num_decimal_places=2).next_to(npos,RIGHT,buff = 0.25).set_value(graph.underlying_function(p.get_value())))
 
-        self.play(Create(graph), Write(equ), run_time = 3)
-        self.wait()
+        self.play(Create(graph), Write(equ), run_time = 4)
+        self.wait(5)
 
         self.play(Create(trk))
         self.wait()
@@ -79,7 +79,17 @@ class Limit0(GraphScene):
         self.play(p.animate.set_value(2), run_time = 5)
         self.wait(5)
 
-class Limit(GraphScene):
+        qtn_mark = MathTex('?').scale(7).next_to(equ, DOWN, buff = 0.5).shift(RIGHT + 0.5 * DOWN)
+
+        display_out = Rectangle(BLACK, config["frame_height"], config["frame_width"], fill_opacity=1)
+
+        self.play(Write(qtn_mark), run_time = 2)
+        self.wait(3)
+
+        self.play(FadeIn(display_out), run_time = 2)
+        self.wait(2)
+
+class Limit1(GraphScene):
     def construct(self):
         self.x_min = -2
         self.x_max = 6
@@ -177,11 +187,11 @@ class Limit(GraphScene):
         ftext2_value = always_redraw(lambda : DecimalNumber(num_decimal_places=2).next_to(ftext2, RIGHT).set_value(graph.underlying_function(k.get_value())))
 
         #LH ext and value
-        xtext1 = always_redraw(lambda : MathTex(r"x", r"=").next_to(ptr1, DL))
+        xtext1 = always_redraw(lambda : MathTex(r"x", r"=").next_to(ptr1, 1.1*DOWN+LEFT))
         xtext1_value = always_redraw(lambda : DecimalNumber(num_decimal_places=2).scale(0.7).next_to(xtext1, RIGHT).set_value(p.get_value()))
         
         #RH text and value
-        xtext2 = always_redraw(lambda : MathTex(r"x", r"=").next_to(ptr2, DL))
+        xtext2 = always_redraw(lambda : MathTex(r"x", r"=").next_to(ptr2, 1.1*DOWN+LEFT))
         xtext2_value = always_redraw(lambda : DecimalNumber(num_decimal_places=2).scale(0.7).next_to(xtext2, RIGHT).set_value(k.get_value()))
 
 
@@ -204,7 +214,7 @@ class Limit(GraphScene):
         self.wait()
 
         self.play(Create(cross), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeTransform(VGroup(equ_xvalue, equ_yvalue, cross), equ), run_time = 3)
         self.wait()
@@ -217,7 +227,7 @@ class Limit(GraphScene):
         self.wait()
 
         self.play(p.animate.set_value(1.97), run_time=4)
-        self.wait()
+        self.wait(5)
 
         self.play(Create(h_line3), Create(v_line3), Create(dotcirc3), Create(ptr2), FadeOut(VGroup(xtext1, xtext1_value)))
         self.wait()
@@ -226,16 +236,16 @@ class Limit(GraphScene):
         self.wait()
 
         self.play(k.animate.set_value(2.01), run_time=4)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeOut(VGroup(xtext2, xtext2_value)))
         self.wait()
 
         self.play(CircleIndicate(ftext1[1]), CircleIndicate(ftext2[1]), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(ShowPassingFlashAround(ftext1_value), ShowPassingFlashAround(ftext2_value), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         #left and right x values
         x_at_pointl = MathTex("2").move_to(ftext1[1])
@@ -257,19 +267,24 @@ class Limit(GraphScene):
             Transform(VGroup(ftext1[1], ftext2[1]), VGroup(x_at_pointl, x_at_pointr)),
             ReplacementTransform(VGroup(ftext1_value, ftext2_value), VGroup(f_at_xl, f_at_xr))
         )
-        self.wait()
+        self.wait(10)
 
         self.play(FadeTransform(ftext1[0:3], lhl), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeTransform(ftext2[0:3], rhl), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeIn(brace_btn_limit))
-        self.wait()
+        self.wait(5)
 
         self.play(Write(limit), run_time = 2)
-        self.wait()
+        self.wait(5)
+
+        display_out = Rectangle(BLACK, config["frame_height"], config["frame_width"], fill_opacity=1)
+
+        self.play(FadeIn(display_out), run_time = 2)
+        self.wait(2)
 
 class Limit2(GraphScene):
     def construct(self):
@@ -399,51 +414,56 @@ class Limit2(GraphScene):
 
 
         self.play(Create(graph), Write(f), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(Create(v_line1), run_time = 2)
         self.wait()
 
         self.play(FadeIn(c))
-        self.wait()
+        self.wait(5)
 
         self.play(Create(h_line1), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeIn(l))
-        self.wait()
+        self.wait(5)
 
         self.play(
             Create(v_line2),
             Create(h_line2),
-            run_time = 2
-        )
-        self.wait()
-
-        self.play(
             Create(v_line3),
             Create(h_line3),
-            run_time = 2
+            run_time = 3
         )
-        self.wait()
+        # self.wait()
+
+        # self.play(
+        #     Create(v_line3),
+        #     Create(h_line3),
+        #     run_time = 3
+        # )
+        self.wait(5)
 
         self.play(Create(x_brace1), Create(x_brace2), Create(x_brt1), Create(x_brt2))
-        self.wait()
+        self.wait(5)
 
-        self.play(Create(y_brace1), Create(y_brace2), Create(y_brt1), Create(y_brt2))
-        self.wait()
+        self.play(Create(y_brace1), Create(y_brace2))
+        self.wait(5)
+
+        self.play(Create(y_brt1), Create(y_brt2))
+        self.wait(5)
 
         self.play(WiggleOutThenIn(VGroup(x_brt1, x_brt2, y_brt1, y_brt2)), run_time = 4)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeIn(VGroup(delta_gt1, delta_gt2, epsolon_gt1, epsolon_gt2)))
-        self.wait()
+        self.wait(5)
 
-        self.play(p.animate.set_value(1.5), k.animate.set_value(1.5))
-        self.wait()
+        self.play(p.animate.set_value(1.5), k.animate.set_value(1.5), run_time = 4)
+        self.wait(5)
 
-        self.play(p.animate.set_value(1.25), k.animate.set_value(1.75))
-        self.wait()
+        self.play(p.animate.set_value(1.25), k.animate.set_value(1.75), run_time = 2)
+        self.wait(5)
 
         ## animation for line at x
 
@@ -461,6 +481,16 @@ class Limit2(GraphScene):
         h_line_at_x = always_redraw(lambda : get_horizontal_line(t.get_value(), "#FF0000"))
         v_line_at_x = always_redraw(lambda : get_vertical_line(t.get_value(), "#FF0000"))
 
+        fx = always_redraw(
+            lambda : MathTex(r'f(x)').scale(0.6).set_color('#99ff00').next_to(h_line_at_x,LEFT, buff = -0.55)
+        )
+
+        xt = always_redraw(
+            lambda : MathTex(r'x').scale(0.6).set_color('#99ff00').next_to(v_line_at_x,DOWN, buff = -0.2)
+        )
+
+        # xtext1 = always_redraw(lambda : MathTex(r"x", r"=").next_to(ptr1, 1.1*DOWN+LEFT))
+
         brace_x = always_redraw(
             lambda : get_brace(
                 self.coords_to_point(1.5, 0),
@@ -469,11 +499,12 @@ class Limit2(GraphScene):
             )
         )
 
-        dist_x = MathTex("0","<","|x-c|","<",r"\delta").shift(self.coords_to_point(4,2.5))
+        dist_x = MathTex("0","<","|","x","-c|","<",r"\delta").shift(self.coords_to_point(4,2.5))
+        dist_x[3].set_color('#99ff00')
         dist_x[0].set_color(RED)
         dist_x[1].set_color(YELLOW)
-        dist_x[3].set_color(YELLOW)
-        dist_x[4].set_color(RED)
+        dist_x[5].set_color(YELLOW)
+        dist_x[6].set_color(RED)
 
         brace_y = always_redraw(
             lambda : get_brace(
@@ -483,9 +514,10 @@ class Limit2(GraphScene):
             )
         )
 
-        dist_y = MathTex("|f(x)-L|","<",r"\epsilon").next_to(dist_x, DOWN)
-        dist_y[1].set_color(YELLOW)
-        dist_y[2].set_color(RED).scale(1.2)
+        dist_y = MathTex("|","f(x)","-L|","<",r"\epsilon").next_to(dist_x, DOWN)
+        dist_y[1].set_color('#99ff00')
+        dist_y[3].set_color(YELLOW)
+        dist_y[4].set_color(RED).scale(1.2)
 
         rect = Rectangle(color = BLUE, height=1.5, width=3, fill_opacity = 1).next_to(dist_y, DOWN)
         rect.set_fill("#343434")
@@ -496,33 +528,34 @@ class Limit2(GraphScene):
         self.play(FadeIn(double_arrow), run_time = 2)
         self.wait()
 
-        self.play(Uncreate(double_arrow))
+        self.play(FadeOut(double_arrow))
         self.wait()
 
-        self.play(Create(h_line_at_x), Create(v_line_at_x))
+        self.play(Create(h_line_at_x), Create(v_line_at_x), Write(xt), Write(fx))
         self.wait()
+        
 
         self.play(t.animate.set_value(1.35), run_time = 4)
-        self.wait()
+        self.wait(5)
 
         self.play(Create(brace_x), run_time = 2)
-        self.wait()
+        self.wait(4)
 
         self.play(TransformFromCopy(brace_x, dist_x[2:]), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(ShowPassingFlashAround(dist_x[2]), run_time = 2)
-        self.wait()
+        self.wait(3)
 
         self.play(Create(brace_y), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         self.play(TransformFromCopy(brace_y, dist_y), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(t.animate.set_value(1.65), u.animate.set_value(1.65), run_time = 3)
         self.play(t.animate.set_value(1.3), u.animate.set_value(1.3), run_time = 3)
-        self.wait()
+        self.wait(5)
 
         self.play(
             t.animate.set_value(1.5),
@@ -531,10 +564,10 @@ class Limit2(GraphScene):
             Write(xc),
             run_time = 3
         )
-        self.wait()
+        self.wait(5)
 
         self.play(Write(xmc), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         self.play(
             FadeTransform(VGroup(rect, xc, xmc), dist_x[0:2]),
@@ -542,10 +575,10 @@ class Limit2(GraphScene):
             u.animate.set_value(1.32),
             run_time = 3
         )
-        self.wait()
+        self.wait(5)
 
         self.play(t.animate.set_value(1.4), u.animate.set_value(1.4), run_time = 4)
-        self.wait()
+        self.wait(5)
 
         #definition of limit
         display = Rectangle(color = BLUE, height = 3, width=5, fill_opacity = 1).next_to(dist_y, DOWN, buff = 0.6).shift(0.5*RIGHT)
@@ -577,19 +610,19 @@ class Limit2(GraphScene):
 
 
         self.play(DrawBorderThenFill(display), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         self.play(Write(limit), run_time = 2)
-        self.wait()
+        self.wait(2)
 
         self.play(FadeIn(c1), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeIn(c2), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         self.play(FadeIn(c3), run_time = 2)
-        self.wait()
+        self.wait(5)
 
         frame_rect = Rectangle(BLACK, config["frame_height"], config["frame_width"], fill_opacity=0.9)
 
@@ -618,7 +651,12 @@ class Limit2(GraphScene):
         def_group = VGroup(def1, def2, def3).move_to(frame_rect)
 
         self.play(FadeIn(frame_rect), FadeIn(def_group), run_time = 3)
-        self.wait()
+        self.wait(5)
+
+        # display_out = Rectangle(BLACK, config["frame_height"], config["frame_width"], fill_opacity=1)
+
+        # self.play(FadeIn(display_out), run_time = 2)
+        # self.wait(2)
 
 
 # class Indicator(GraphScene):
