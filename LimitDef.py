@@ -255,6 +255,10 @@ class Limit1(GraphScene):
         f_at_xl = MathTex("4").move_to(ftext1_value, aligned_edge=LEFT)
         f_at_xr = MathTex("4").move_to(ftext2_value, aligned_edge=LEFT)
 
+        #left and right arrow
+        arr1 = MathTex("\Rightarrow").move_to(ftext1[3])
+        arr2 = MathTex("\Rightarrow").move_to(ftext2[3])
+
         #LHL and RHL
         lhl = MathTex(r"\lim_{x \to 2^-} f(x)").move_to(ftext1[0], aligned_edge=RIGHT).shift(0.3*RIGHT)
         rhl = MathTex(r"\lim_{x \to 2^+} f(x)").move_to(ftext2[0], aligned_edge=RIGHT).shift(0.3*RIGHT)
@@ -265,14 +269,15 @@ class Limit1(GraphScene):
 
         self.play(
             Transform(VGroup(ftext1[1], ftext2[1]), VGroup(x_at_pointl, x_at_pointr)),
-            ReplacementTransform(VGroup(ftext1_value, ftext2_value), VGroup(f_at_xl, f_at_xr))
+            ReplacementTransform(VGroup(ftext1_value, ftext2_value), VGroup(f_at_xl, f_at_xr)),
+            FadeIn(VGroup(arr1, arr2))
         )
         self.wait(10)
 
-        self.play(FadeTransform(ftext1[0:3], lhl), run_time = 3)
+        self.play(FadeTransform(ftext1[0:3], lhl), FadeOut(arr1), run_time = 3)
         self.wait(5)
 
-        self.play(FadeTransform(ftext2[0:3], rhl), run_time = 3)
+        self.play(FadeTransform(ftext2[0:3], rhl), FadeOut(arr2), run_time = 3)
         self.wait(5)
 
         self.play(FadeIn(brace_btn_limit))
@@ -481,12 +486,20 @@ class Limit2(GraphScene):
         h_line_at_x = always_redraw(lambda : get_horizontal_line(t.get_value(), "#FF0000"))
         v_line_at_x = always_redraw(lambda : get_vertical_line(t.get_value(), "#FF0000"))
 
+        # fx = always_redraw(
+        #     lambda : MathTex(r'f(x)').scale(0.6).set_color('#99ff00').next_to(h_line_at_x,LEFT, buff = -0.55)
+        # )
+
+        # xt = always_redraw(
+        #     lambda : MathTex(r'x').scale(0.6).set_color('#99ff00').next_to(v_line_at_x,DOWN, buff = -0.2)
+        # )
+
         fx = always_redraw(
-            lambda : MathTex(r'f(x)').scale(0.6).set_color('#99ff00').next_to(h_line_at_x,LEFT, buff = -0.55)
+            lambda : LabeledDot(MathTex(r'f(x)', color = "#99ff00"), color = BLACK, fill_opacity=0.7).scale(0.35).next_to(h_line_at_x,LEFT, buff = -0.60)
         )
 
         xt = always_redraw(
-            lambda : MathTex(r'x').scale(0.6).set_color('#99ff00').next_to(v_line_at_x,DOWN, buff = -0.2)
+            lambda : LabeledDot(MathTex(r'x', color = "#99ff00"), color = BLACK, fill_opacity = 0.7).scale(0.6).next_to(v_line_at_x,DOWN, buff = -0.4)
         )
 
         # xtext1 = always_redraw(lambda : MathTex(r"x", r"=").next_to(ptr1, 1.1*DOWN+LEFT))
@@ -544,7 +557,7 @@ class Limit2(GraphScene):
         self.play(TransformFromCopy(brace_x, dist_x[2:]), run_time = 3)
         self.wait(5)
 
-        self.play(ShowPassingFlashAround(dist_x[2]), run_time = 2)
+        self.play(ShowPassingFlashAround(dist_x[2:5]), run_time = 2)
         self.wait(3)
 
         self.play(Create(brace_y), run_time = 2)
@@ -711,6 +724,15 @@ class Limit2(GraphScene):
 
 #         self.add(def_group)
 #         self.wait()
+
+# class Label(GraphScene):
+#     def construct(self):
+#         d1 = LabeledDot(MathTex("a", color = "#99ff00"), color = BLACK).scale(0.6)
+#         d2 = LabeledDot(MathTex("f(x)", color = "#99ff00"), color = BLACK).scale(0.3).next_to(d1, DOWN, buff = 0.5)
+
+#         self.play(Create(d1), Create(d2))
+#         self.wait(2)
+
         
 
 
