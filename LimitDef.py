@@ -1,5 +1,24 @@
 from manim import *
-import numpy as np 
+import numpy as np
+
+class Start(Scene):
+    def construct(self):
+        text = Text('Programming & Mathematics Literature', font = 'Dancing Script', size = 1.2).shift(1*UP)
+        text.set_color_by_gradient(RED, ORANGE, YELLOW, '#99ff00')
+
+        limit = Text('Limit', size = 1.2, color = '#99ff00').move_to(text)
+        cd = Text('Concept & Definition', size = 0.9, gradient = (RED, ORANGE)).next_to(limit, DOWN, buff = 0.5)
+
+        display_out = Rectangle(BLACK, config["frame_height"], config["frame_width"], fill_opacity=1)
+
+        self.play(Write(text), run_time = 2)
+        self.wait()
+        
+        self.play(ReplacementTransform(text, limit), run_time = 2)
+        self.play(FadeInFrom(cd, UP), run_time = 2)
+
+        self.play(FadeIn(display_out), run_time = 2)
+        self.wait()
 
 class Limit0(GraphScene):
     def construct(self):
